@@ -1,0 +1,56 @@
+<%- include("partials/header.ejs") %>
+    <%- include("partials/navbar.ejs") %>
+    <div class="container mt-5">
+        <h1>User Submitted Recipes</h1>
+        <div class="row">
+            <% recipes.forEach(recipe => { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <% if (recipe.image_url) { %>
+                            <img src="<%= recipe.image_url %>" class="card-img-top" alt="<%= recipe.recipe_name %>">
+                        <% } %>
+                            <div class="card-body d-flex flex-column">
+                            <h5 class="card-title"><%= recipe.recipe_name %></h5>
+                            <p class="card-text flex-grow-1">
+                                <%= recipe.recipe_description ? recipe.recipe_description.substring(0, 100) + '...' : 'No description available' %>
+                            </p>
+                                <div class="d-flex justify-content-between mt-auto"> 
+                                    <a href="#" id="<%=recipe.recipe_id%>" class="btn btn-primary">View Recipe</a>
+                                    <a href="/recipe/edit/<%= recipe.recipe_id %>" class="btn btn-warning">Edit Recipe</a>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+
+                
+                  
+                <div class="modal fade" id="userRecipeModal" tabindex="-1" aria-labelledby="recipeModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="recipeModalLabel">Recipe Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <img id="modalImage" src="" class="img-fluid mb-3" alt="Recipe Image">
+                        <h3 id="modalTitle"></h3>
+                        <p id="modalDescription"></p>
+                        <div id="modalDetails"></div>
+                        <h4>Ingredients:</h4>
+                        <ul id="modalIngredients"></ul>
+                        <h4>Instructions:</h4>
+                        <ol id="modalInstructions"></ol>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+<script src="/js/listRecipe.js"></script>
+</body>
+</html>
